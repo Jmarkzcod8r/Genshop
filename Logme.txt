@@ -5,7 +5,7 @@ Jan. 22, 2023
 * I lookep up for cheap domain names and the one named 'Genshop.biz' is promising
   in namecheap. I'm planning on using Nextjs for this one. Although my knowledge 
   about Nginx is still primitive, I will use this also along with Mongodb for the
-  database. 
+  database. I think I'm also gonna use vite with typescript for this.
 
 * This is the hierarchy of my website development as I see fit:
     (1) Database -  I'll configure this first because if something unexpected and 
@@ -137,6 +137,61 @@ Jan. 22, 2023
     }
 
 * Okay, It took me almost 2.5 hours making the Phase 1 database. Not bad!
+* I followed the instructions in this site in preparation to using Nexjs and Nginx.
+    https://www.slingacademy.com/article/how-to-deploy-a-next-js-app-on-ubuntu-with-nginx-and-lets-encrypt/
+    
+    # Setting Up Nginx:
+        sudo apt update
+        sudo apt install Nginx
+        sudo systemctl start Nginx
+        sudo systemctl status Nginx
+        sudo systemctl enable Nginx
+
+    # Configure Nginx to Serve the Next.js App
+            sudo nano /etc/nginx/sites-available/slingacademy.com
+        * Add the following to the recently created file:
+            server {
+            client_max_body_size 64M;
+            listen 80;
+            server_name slingacademy.com www.slingacademyc.om;
+
+            location / {
+                    proxy_pass             http://127.0.0.1:3000;
+                    proxy_read_timeout     60;
+                    proxy_connect_timeout  60;
+                    proxy_redirect         off;
+
+                    # Allow the use of websockets
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection 'upgrade';
+                    proxy_set_header Host $host;
+                    proxy_cache_bypass $http_upgrade;
+                            }
+                        }
+        Don’t forget to replace slingacademy.com by your own domain. This is very important!
+        I'm not really sure with this one. The previous command open vim and I just copy pasted
+        what is above and then write it out.
+        * sudo ln -s /etc/nginx/sites-available/slingacademy.com /etc/nginx/sites-enabled/
+        * sudo nginx -t
+        * sudo systemctl restart nginx
+
+    # Installing Node.js, NPM, and PM2
+        cd ~
+        curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+        node -v
+        npm -v
+        npm install -g pm2
+
+    Go to link for the rest of instructions!
+    The way I see it, Nginx is a good addition to your nextjs app althouth the configuration
+        process seems to be confusing at first.
+* Tried to incorporate store from codepen to app but proves to be time-consuming. I may need to
+    put it on hold for now for phase 2. I aslo may need to learn more about svg.
+* I might consider modifying mynextjs app without typescript in the near future if things get
+    a little bit difficult.
+
 * Design :
     //Phase 1
     
