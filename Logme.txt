@@ -1,0 +1,142 @@
+This is like a personal log regarding this website.
+
+Jan. 22, 2023
+
+* I lookep up for cheap domain names and the one named 'Genshop.biz' is promising
+  in namecheap. I'm planning on using Nextjs for this one. Although my knowledge 
+  about Nginx is still primitive, I will use this also along with Mongodb for the
+  database. 
+
+* This is the hierarchy of my website development as I see fit:
+    (1) Database -  I'll configure this first because if something unexpected and 
+                    tragic happends to the site, I can rebuild it with a new domain
+                    name using the data in here.
+    (2) Domain   -  I alreadt looked up some domains and I fiured namecheap would be 
+                    the cheaper one so I'm going for this.
+    (3) Design   -  I can use maybe Figma for this. I think I need some inspirations as well
+                    for this part.
+    (4) Front-end - I'll use Nextjs and tailiwnd in relation to this.
+    (5) Back-end  - Yeah, let's go with axios and express.
+
+* I'm gonna first work with the database and what it would look like. Example:
+    (I may consider editing the keys to make them smaller to save up some storage space later
+        down the line:)
+        // Phase 1
+    { "_uid"            : `{This is auto-generated}`,       // This is unique
+      "e-mail"          :   `jmgutierrez122091@gmail.com`,  // This is unique
+      "allownews"       :   true,   // This is if the user agree to send some news updates 
+      "password"        :   `Wisdoms3`,
+      "User_name"       :   `Jmark_08`,  //by default, this is your e-mail && this needs to be unique 
+      "First_name"      :   `Jay Mark`,
+      "Surname:"        :   `Gutierrez`,
+      "Photo"           :   `etc...`, // I need to setup a defaul pic for this
+      "notifications"   :   [...]   // This involves other people
+      "Package"         :   `free` //This is by default, if not: `premium` or `elite`
+      "Current_user"    :   `Personal` //This is by defauly, if not: `shop1` or `shop2`
+      "user_activity"   :   [...] // This may proved to be challenging, For the most part, I need to check the buttons the user clicked
+      "Shops_maximum"   :   2
+      "Chats"           : { "_uid"          :   "98df9df89ds9d8..etc"
+                            "last_check"    :   { {  "user"  :   "Jmark_08",
+                                                     "date"  :   "04/22/2023 1100H"   },
+                                                  {  "user"  :   "John_Doe",
+                                                     "date"  :   "04/22/2023 1200H"   } }                                                 
+                            "created"       :   "04/22/2023m 1300H"
+                            "participants"  :   [`Jmark_08`,`John_Doe`]
+                            "history"       :   {   
+
+                                                    }
+
+                                }
+      "Shops"       : { "_uid"              : "..jh23bru3rbjh1brjh23b...etc..."
+                        "s_name"            : "JM's Ukay2"
+                        "s_operation"       : "Mon-Sat 0800H 1800H"
+                        "s_contacts"        :   {   "email"             :   "JMUkay@gmail.com"
+                                                    "Phone_number"      :   "09461789442"
+                                                    "Cellphone_number"  :   "..some_numbers"       
+                                                    }
+                        "s_offdates"        : "If true, modify status"...
+                        "s_status"          : "Open" , "Closed" , "Early Close"                        
+                        "s_created"         : "04/12/2023"
+                        "s_profilePic"      : "link...Is it possible to link use google drive link for this?"
+                        "S_header_pic"      : "link...Is it possible to link use google drive link for this?"
+                        "s_email"           : "You can use a secondary e-mail or use your main"
+                        "s_address"         : "This is optional..."
+                        "s_google_sheets"   : "This may require a lot of work. I'm gonna put this in Phase 2"
+                        "s_activity"        : [...] // This may proved to be challenging.
+                        "s_items" //si      : { "_uid"              :   "jhb3jb32b3..." //This is unique
+                                                "si_name"           :   "Assorted Shorts" or "Standard"
+                                                "si_photos"         :   [{  "_uid"      :   "98sdfss9d8fs9sdf...etc"
+                                                                            "photo"     :   "..some sort of line..."
+                                                                            "created"   :   "04/22/2023 1500H"
+                                                                            }]
+                                                "si_description"    :   "Get these multi-colored shorts/. P50 each. First come, First Serve."
+                                                "si_price"          :  {    "type"     : "default" or "Promo"
+                                                                            "default"  : "P50.00", "P20 / kg"
+                                                                            "Promo"    : {  "Promo_price"       : "P15.00",                                                                                       
+                                                                                            "Promo_start"       : "04/24/2023 0000H"
+                                                                                            "Promo_end"         : "04/24/2023 2400H" or "indefinite"
+                                                                                    }
+                                                "si_quantity"       :   "23", or "N/A"  // This gets updated when an order is confirmed
+                                                "si_tags"           :   "Shorts, apparels, affordable, ukay2, second hands",
+                                                "order"             :  {"order_created"         :  "04/24/2023 1600H",
+                                                                        "order_rating_average"  :  "4.1/5" // This is for phase 2
+                                                                        "order_quantity"        :  "4"
+                                                                        "order_bill"            :  "P200"
+                                                                        "order_Pick-up_Dates"   :  "04/26/2023,04/27/2023.04/28/2023" 
+                                                                        "order_payments"     :   {  "type"        :   "Gcash" or "COD"
+                                                                                                    "Message"     :   "payed" //sent to chat of shop
+                                                                                                    "Gcash"       :   { "QR_code_pic" : "some...link"
+                                                                                                                        "Receipt"     : "Transactio ID"
+                                                                                                                        "Gcash_send"  : "04/24/2023 1630H"
+                                                                                                                        }
+                                                                                                    "Response"    :    "Thank You for your purchase, Your
+                                                                                                                        order is now awaiting for confirmation" //This is default
+                                                                                                    }
+                                                                        "order_confirmed"       :   'not yet',true, decline 
+                                                                        "order_confirmed_date"  :   "04/27/2023" 
+                                                                        "order_feedback"        : { "Rating"    :   "4.5/5", // This is for phase 2
+                                                                                                    "created"   :   "04/25/2023 1755H",
+                                                                                                    "mesage"    :   "Nice. will order later",
+                                                                                                    "Photos"    :  [{   "link"      :   "some...link",
+                                                                                                                        "created"   :   "04/25/2023 1800H"
+                                                                                                                        }]
+
+                                                                                                                        }
+                                                                                                    }
+                                                                        }
+                                                                    }                                          
+                                                }
+                        "shop_chats"  //sc      : { "_uid"          :   "89dfisdfd89sdf..etc" //this is unique
+                                                "sc_"last_check"    :   { {  "user"  :   "Jmark_08",
+                                                                             "date"  :   "04/22/2023 1100H"   },
+                                                                          {  "user"  :   "John_Doe",
+                                                                             "date"  :   "04/22/2023 1200H"   } }        
+                                                "sc_created"        :   "04/24/2023 1700H"
+                                                "sc_participants"   :   [`JM's Ukay2`,`John Doe`] //These are unique ID's
+                                                "sc_history"        :   [{  "_uid"      :   "8dfgd9df9090fd...etc..."
+                                                                            "message"   :   "Hi, Good day! I just ordered. I hope you can confirm"
+                                                                            "Sender"    :   "John Does"
+                                                                            "Created"   :   "04/24/2023 1705H"
+                                                                            "Seen"      :   false
+                                                                            }]
+
+                                                }
+
+                                                    }
+                            
+                            },
+      "Friends"       : [..list of _uids..],
+      "Search"        : {   "Find"  :   "JMUkay2"}
+      
+
+        //Phase 2
+      "Newsfeed"      : {...to be modified...               }
+      "Relevants"     :   [...list of unique ID's of friends...],
+      "Bookmarks"     :   [...list]
+
+    }
+
+* Okay, It took me almost 2.5 hours making the Phase 1 database. Not bad!
+* Design :
+    //Phase 1
+    
